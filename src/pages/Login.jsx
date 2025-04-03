@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useLogin } from "../hooks/useLogin";
 function Login() {
+  const {data, isPending, login} = useLogin()
   const handleSubmit = (e) => {
     e.preventDefault();
     const fromData = new FormData(e.target);
     const email = fromData.get("email");
     const password = fromData.get("password");
-    console.log(email, password);
+    login(email, password);
   };
   return (
     <section>

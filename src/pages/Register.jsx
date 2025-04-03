@@ -32,9 +32,12 @@ const {data, isPending, register} = useRegister()
             <FormInput label="Dispay Name:" name="displayName" type="text" />
             <FormInput label="Password:" name="password" type="password" />
             <div className="flex items-center gap-5 mt-8 mb-8">
-              <button type="submit" className="btn btn-primary grow">
+             {!isPending &&  <button type="submit" className="btn btn-primary grow">
                 Register
-              </button>
+              </button>}
+              {isPending &&  <button type="submit" className="btn btn-disabled grow" disabled>
+                Loading...
+              </button>}
               <button type="button" className="btn btn-secondary grow">
                 Google
               </button>

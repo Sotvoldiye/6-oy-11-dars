@@ -20,7 +20,8 @@ export function useRegister() {
       });
       const user = req.user;
       toast.success(`welcome ${displayName}`);
-      dispatch({ type: "Login", payload: user });
+      dispatch({ type: "LOGIN", payload: user });
+      setData(user)
     } catch (error) {
       toast.error(error.message);
     } finally {

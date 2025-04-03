@@ -14,9 +14,13 @@ import Home from "./pages/Home";
 import Create from "./pages/Create";
 
 import { useGlobalContext } from "./hooks/useGlobalContext";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/config";
+import { use } from "react";
 
 function App() {
-  const { user, dispatch } = useGlobalContext();
+  const { user, dispatch, isAuthReady } = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -45,8 +49,15 @@ function App() {
       element: user ? <Navigate to="/" /> : <Register />,
     },
   ]);
-
-  return <RouterProvider router={routes} />;
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user)=>{
+      if(user?.displayName && user?.photoURL){
+        dispatch({type:"LOGIN", payload: user})
+      }
+      dispatch({type:"AUTH_READY"})
+    })
+  },[])
+  return <>{isAuthReady && <RouterProvider router={routes} />}</>
 }
 
 export default App;
