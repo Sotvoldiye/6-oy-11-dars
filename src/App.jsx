@@ -21,12 +21,13 @@ import { use } from "react";
 
 function App() {
   const { user, dispatch, isAuthReady } = useGlobalContext();
+  console.log(user);
   const routes = createBrowserRouter([
     {
       path: "/",
       element: (
         <ProtectedRoutes user={user}>
-          <MainLayout  />
+          <MainLayout />
         </ProtectedRoutes>
       ),
       children: [
@@ -49,15 +50,15 @@ function App() {
       element: user ? <Navigate to="/" /> : <Register />,
     },
   ]);
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user)=>{
-      if(user?.displayName && user?.photoURL){
-        dispatch({type:"LOGIN", payload: user})
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user?.displayName && user?.photoURL) {
+        dispatch({ type: "LOGIN", payload: user });
       }
-      dispatch({type:"AUTH_READY"})
-    })
-  },[])
-  return <>{isAuthReady && <RouterProvider router={routes} />}</>
+      dispatch({ type: "AUTH_READY" });
+    });
+  }, []);
+  return <>{isAuthReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App;

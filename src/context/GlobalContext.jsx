@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react";
 export const GlobalContext = createContext();
 const initalState = {
   user: null,
-  isAuthReady: false
+  isAuthReady: false,
 };
 
 const reducer = (state, action) => {
@@ -12,13 +12,13 @@ const reducer = (state, action) => {
   switch (type) {
     case "LOGIN":
       return { ...state, user: payload };
-    case "LOGUOT":
+    case "LOGOUT":
       return {
         ...state,
         user: null,
       };
-      case "AUTH_READY":
-        return{...state, isAuthReady: true}
+    case "AUTH_READY":
+      return { ...state, isAuthReady: true };
     default:
       return state;
   }
