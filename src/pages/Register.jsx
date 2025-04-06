@@ -2,16 +2,22 @@ import { Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useGlobalContext } from "../hooks/useGlobalContext";
 import { useRegister } from "../hooks/useRegister";
+import { useGoogleProvider } from "../hooks/useGoogleProvider";
 
 function Register() {
-const {data, isPending, register} = useRegister()
+  const { data, isPending, register } = useRegister();
+  const {
+    data: is_data,
+    isPending: is_Pending,
+    googleProvider,
+  } = useGoogleProvider();
   const handleSubmit = (e) => {
     e.preventDefault();
     const fromData = new FormData(e.target);
     const displayName = fromData.get("displayName");
     const email = fromData.get("email");
     const password = fromData.get("password");
-    register( displayName, email, password);
+    register(displayName, email, password);
   };
   return (
     <section>
@@ -32,15 +38,34 @@ const {data, isPending, register} = useRegister()
             <FormInput label="Dispay Name:" name="displayName" type="text" />
             <FormInput label="Password:" name="password" type="password" />
             <div className="flex items-center gap-5 mt-8 mb-8">
-             {!isPending &&  <button type="submit" className="btn btn-primary grow">
-                Register
-              </button>}
-              {isPending &&  <button type="submit" className="btn btn-disabled grow" disabled>
-                Loading...
-              </button>}
-              <button type="button" className="btn btn-secondary grow">
-                Google
-              </button>
+              {!isPending && (
+                <button type="submit" className="btn btn-primary grow">
+                  Register
+                </button>
+              )}
+              {isPending && (
+                <button
+                  type="submit"
+                  className="btn btn-disabled grow"
+                  disabled
+                >
+                  Loading...
+                </button>
+              )}
+              {!is_Pending && (
+                <button
+                  onClick={googleProvider}
+                  type="button"
+                  className="btn btn-secondary grow"
+                >
+                  Google
+                </button>
+              )}
+              {is_Pending && (
+                <button type="button" className="btn btn-secondary grow">
+                  Loading...
+                </button>
+              )}
             </div>
             <p className="text-center opacity-75 text-white md:text-black">
               If you have account

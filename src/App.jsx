@@ -21,7 +21,6 @@ import { use } from "react";
 
 function App() {
   const { user, dispatch, isAuthReady } = useGlobalContext();
-  console.log(user);
   const routes = createBrowserRouter([
     {
       path: "/",

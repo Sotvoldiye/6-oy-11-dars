@@ -1,9 +1,10 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "./useGlobalContext";
-import Login from "../pages/Login";
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 export function useRegister() {
   const { dispatch } = useGlobalContext();
@@ -19,6 +20,12 @@ export function useRegister() {
         photoURL: `https://api.dicebear.com/9.x/adventurer/svg?seed=${displayName}`,
       });
       const user = req.user;
+      await setDoc(doc(db, "users", user.uid), {
+      displayName: user.displayName,  
+      photoURL: user.photoURL ,
+      online : true
+      });
+
       toast.success(`welcome ${displayName}`);
       dispatch({ type: "LOGIN", payload: user });
       setData(user)
