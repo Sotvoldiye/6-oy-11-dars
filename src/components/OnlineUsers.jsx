@@ -1,32 +1,26 @@
 import { useCollection } from "../hooks/useCollection";
+import FalseUsers from "./FalseUsers";
+import TrueUsers from "./TrueUsers";
 
 function OnlineUsers() {
   const { data } = useCollection("users");
   return (
-    <div className="onlineUser">
+    <div className="onlineUser rounded-md ">
       {data &&
         data.map((u) => {
           console.log(u);
           return (
-            <div key={u.id}>
-              {u.online && (
-                <div className="flex w-10">
-                <div className="avatar avatar-online">
-                  <div className="w-14 rounded-full">
-                    <img src={u.photoURL} />
-                  </div>
-                </div>
-                <p>{u.displayName}</p>
-                </div>
+            <div key={u.id} className="flex">
+             <div className="flex w-full">
+             {u.online && (
+               <TrueUsers u={u}/>
               )}
+             </div>
+              <div className="users">
               {!u.online && (
-                <div className="avatar avatar-offline">
-                  <div className="w-24 rounded-full">
-                    <img src={u.photoURL} />
-                    <p>{u.displayName}</p>
-                  </div>
-                </div>
+              <FalseUsers u={u}/>
               )}
+              </div>
             </div>
           );
         })}
