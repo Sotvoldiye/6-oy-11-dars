@@ -11,12 +11,12 @@ function OnlineUsers() {
           console.log(u);
           return (
             <div key={u.id} className="flex">
-             <div className="flex w-full">
+             <div className="flex w-auto">
              {u.online && (
                <TrueUsers u={u}/>
               )}
              </div>
-              <div className="users">
+              <div className="flex w-auto">
               {!u.online && (
               <FalseUsers u={u}/>
               )}

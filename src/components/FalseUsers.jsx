@@ -2,7 +2,7 @@ import React from 'react'
 
 function FalseUsers({u}) {
   return (
-    <div className="Users flex w-10 items-center">
+    <div className="flex w-10 items-center">
     <div className="avatar avatar-offline">
       <div className="w-14 rounded-full">
         <img src={u.photoURL} />
@@ -10,6 +10,7 @@ function FalseUsers({u}) {
     </div>
     <p>{u.displayName}</p>
     </div>
+    
   )
 }
 

@@ -27,7 +27,7 @@ export function useRegister() {
       });
 
       toast.success(`welcome ${displayName}`);
-      dispatch({ type: "LOGIN", payload: user });
+      dispatch({ type: "LOGIN",  user });
       setData(user)
     } catch (error) {
       toast.error(error.message);

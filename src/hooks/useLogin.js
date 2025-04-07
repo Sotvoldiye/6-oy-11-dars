@@ -3,7 +3,7 @@ import { auth, db } from "../firebase/config";
 import { useState } from "react";
 import { useGlobalContext } from "./useGlobalContext";
 import toast from "react-hot-toast";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export function useLogin() {
   const { dispatch } = useGlobalContext();
@@ -11,18 +11,19 @@ export function useLogin() {
   const [data, setData] = useState(null);
 
   const login = async (email, password) => {
+    setIsPending(true)
     try {
-      const useRef = doc(db, "users", user.uid);
-      await updateDoc(
-        (useRef,
-        {
-          online:true,
-        })
-      );
-      setIsPending(true);
       const req = await signInWithEmailAndPassword(auth, email, password);
       const user = req.user;
-      toast.success(`welcome back ${user.displayName}`);
+      const useRef = doc(db, "users", user.uid);
+      await updateDoc(
+        useRef,
+        {
+          online:true,
+        }
+      );
+
+      toast.success(`welcome back ${user.displayName || "Users"}`);
       dispatch({ type: "LOGIN", payload: user });
       setData(user);
     } catch (error) {
@@ -34,3 +35,4 @@ export function useLogin() {
   };
   return { isPending, data, login };
 }
+

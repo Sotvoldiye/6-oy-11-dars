@@ -15,7 +15,7 @@ export const useGoogleProvider = () => {
             const provider = new GoogleAuthProvider()
             const req = await signInWithPopup(auth, provider)
             const user = req.user;
-            dispatch({type:"LOGIN", payload: user})
+            dispatch({type:"LOGIN",  user})
             setData(user)
             toast.success(`Welcome ${user.displayName}`)
         }catch (erorr){
