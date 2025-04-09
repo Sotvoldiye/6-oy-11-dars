@@ -4,6 +4,7 @@ export const GlobalContext = createContext();
 const initalState = {
   user: null,
   isAuthReady: false,
+  recepies: null,
 };
 
 const reducer = (state, action) => {
@@ -19,6 +20,8 @@ const reducer = (state, action) => {
       };
     case "AUTH_READY":
       return { ...state, isAuthReady: true };
+    case "CREATE_RECEPIEC":
+      return { ...state, recepies: payload };
     default:
       return state;
   }

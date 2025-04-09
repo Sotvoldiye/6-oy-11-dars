@@ -4,19 +4,19 @@ import { useGlobalContext } from "./useGlobalContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { doc, updateDoc } from "firebase/firestore";
-
+import { useFirestore } from "./useFirestore";
 
 export function useLogout() {
   const { dispatch, user } = useGlobalContext();
   const [isPending, setIsPending] = useState(false);
-
+  const { updateDocument } = useFirestore("users");
   const logout = async () => {
     try {
       const useRef = doc(db, "users", user.uid);
-      await updateDoc(useRef, {
+      updateDocument(user.uid, {
         online: false,
       });
-      
+     
       setIsPending(true);
       await signOut(auth);
       dispatch({ type: "LOGOUT" });

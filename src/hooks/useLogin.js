@@ -1,28 +1,23 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase/config";
+import { auth } from "../firebase/config";
 import { useState } from "react";
 import { useGlobalContext } from "./useGlobalContext";
 import toast from "react-hot-toast";
-import { doc, updateDoc } from "firebase/firestore";
+import { useFirestore } from "./useFirestore";
 
 export function useLogin() {
   const { dispatch } = useGlobalContext();
   const [isPending, setIsPending] = useState(false);
   const [data, setData] = useState(null);
-
+  const {updateDocument} = useFirestore()
   const login = async (email, password) => {
     setIsPending(true)
     try {
       const req = await signInWithEmailAndPassword(auth, email, password);
       const user = req.user;
-      const useRef = doc(db, "users", user.uid);
-      await updateDoc(
-        useRef,
-        {
-          online:true,
-        }
-      );
-
+      updateDocument(user.uid, {
+        online: true,
+      })
       toast.success(`welcome back ${user.displayName || "Users"}`);
       dispatch({ type: "LOGIN", payload: user });
       setData(user);
