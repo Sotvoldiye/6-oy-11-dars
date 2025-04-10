@@ -20,7 +20,7 @@ function Register() {
     register(displayName, email, password);
   };
   return (
-    <section>
+    <section>  
       <div className="h-screen grid  grid-cols-1 md:grid-cols-2">
         <div className="login-register-left-section hidden md:flex"></div>
         <div className="grid place-items-center login-register-left-section md:bg-none">
