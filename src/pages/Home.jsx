@@ -15,6 +15,7 @@ function Home() {
               Ingredients:{" "}
               {r.ingridents && r.ingridents.map((e)=>{return(<i key={e}>{e}</i>)})}
             </p>
+            <img src={r.Img} alt="" />
           </div>
         ))}
     </div>
