@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCollection } from "../hooks/useCollection";
 
 function Home() {
@@ -11,13 +12,13 @@ function Home() {
             <h2 className="text-xl font-semibold mb-2">{r.title}</h2>
             <p className="text-gray-700 mb-1">{r.description}</p>
             <p className="text-sm text-gray-500">⏱ {r.cookingTime} minutes</p>
+            <img src={r.Img} alt="" />
             <p>
               Ingredients:{" "}
-              {r.ingridents && r.ingridents.map((e)=>{return(<i key={e}>{e}</i>)})}
+             <ul className="flex gap-3"> {r.ingridents && r.ingridents.map((e)=>{return(<li key={e}>{e}</li>)})}</ul>
             </p>
-            <img src={r.Img} alt="" />
           </div>
-        ))}
+        ))} 
     </div>
   );
 }
